@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     Danisman danisman = (Danisman) request.getSession().getAttribute("danisman");
@@ -16,7 +17,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Staj Bilgisi List</title>
+    <title>Staj Bilgileri</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -82,8 +83,8 @@
                     <th scope="row">Staj Bitiş Tarihi</th>
                     <th scope="row">Staj Puanı</th>
                     <th scope="row">Yorum</th>
-                    <th scope="row">Update</th>
-                    <th scope="row">Delete</th>
+                    <th scope="row">Güncelle</th>
+                    <th scope="row">Sil</th>
                     </thead>
                     <tbody>
                     <c:forEach items="${stajbilgisiList}" var="stajbilgisi" >
@@ -104,11 +105,11 @@
 
                             <td>
                                 <spring:url value="/stajbilgisi/editStajbilgisi/${stajbilgisi.id}" var="editURL" />
-                                <a class="btn btn-info" href="${editURL}" role="button" >Update</a>
+                                <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>
                             </td>
                             <td>
                                 <spring:url value="/stajbilgisi/deleteStajbilgisi/${stajbilgisi.id}" var="deleteURL" />
-                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Delete</a>
+                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Sil</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -116,7 +117,6 @@
                 </table>
                 <spring:url value="/stajbilgisi/addStajbilgisi/" var="addURL" />
                 <a class="btn btn-success" href="${addURL}" role="button" >Yeni Staj Bilgisi Ekle</a>
-
 
             </div>
 

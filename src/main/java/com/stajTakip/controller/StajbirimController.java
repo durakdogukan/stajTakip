@@ -2,6 +2,7 @@ package com.stajTakip.controller;
 
 import com.stajTakip.model.Sirketbilgisi;
 import com.stajTakip.model.Stajbirim;
+import com.stajTakip.model.User;
 import com.stajTakip.services.SirketbilgisiService;
 import com.stajTakip.services.StajbirimService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -71,9 +74,26 @@ public class StajbirimController {
 
 
     @RequestMapping(value="/addStajbirim", method=RequestMethod.POST)
-    public ModelAndView add(@ModelAttribute("stajbirimForm") Stajbirim stajbirim) {
+    public ModelAndView add(@ModelAttribute("stajbirimForm") Stajbirim stajbirim, RedirectAttributes redirAttrs) {
+
+        for(Stajbirim stajbirim2: stajbirimService.getAllStajbirim())
+        {
+
+            if (stajbirim2.getAd().equals(stajbirim.getAd())
+                                                             && stajbirim2.getSirketbilgisi().equals(stajbirim.getSirketbilgisi())
+            )
+            {
+
+                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Şirket - Staj Birim Kayıtlarda Mevcut");
+                return new ModelAndView("redirect:/stajbirim/list");
+            }
+
+        }
+
+
 
         stajbirimService.addStajbirim(stajbirim);
+        redirAttrs.addFlashAttribute("message", "Staj Birimi Başarıyla Oluşturuldu ");
         return new ModelAndView("redirect:/stajbirim/list");
 
     }

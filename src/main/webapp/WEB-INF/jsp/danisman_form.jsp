@@ -16,24 +16,6 @@
         response.sendRedirect("/student_login");
 %>
 
-<%--<%--%>
-<%--    User user = (User) request.getSession().getAttribute("user");--%>
-<%--    if (user==null)--%>
-<%--        response.sendRedirect("/student_login");--%>
-
-<%--//    AbstractApplicationContext appContext = new AnnotationConfigApplicationContext(DanismanService.class);--%>
-<%--//    DanismanService danismanService = appContext.getBean(DanismanService.class);--%>
-<%--//--%>
-<%--//    for (Danisman danisman: danismanService.getAllDanisman())--%>
-<%--//    {--%>
-<%--//        if (danisman.getUser().equals(user.getId()))--%>
-<%--//        {--%>
-<%--//            response.sendRedirect("/student_login");--%>
-<%--//        }--%>
-<%--//--%>
-<%--//    }--%>
-<%--%>--%>
-
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -43,6 +25,19 @@
     <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+    <script>
+        function kontrol(){
+            if (document.form.ad.value == ""){
+                alert ( "Danışman Ad Giriniz" );
+                return false;
+            }
+            if (document.form.soyad.value == ""){
+                alert ( "Danışman Soyad Giriniz" );
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -50,18 +45,18 @@
 
     <h2>Danışman Ekle / Güncelle</h2>
 
-    <form:form modelAttribute="danismanForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form name="form" modelAttribute="danismanForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();" >
 
         <form:hidden path="id"/>
 
         <div class="form-group">
             <label>Danışman Adı</label>
-            <form:input path="ad" cssClass="form-control" id="ad" />
+            <form:input path="ad" cssClass="form-control" id="ad" maxlength="20"/>
         </div>
 
         <div class="form-group">
             <label>Danışman Soyadı</label>
-            <form:input path="soyad" cssClass="form-control" id="soyad" />
+            <form:input path="soyad" cssClass="form-control" id="soyad" maxlength="30"/>
         </div>
 
         <div class="form-group">

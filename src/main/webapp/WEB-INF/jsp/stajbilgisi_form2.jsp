@@ -21,13 +21,30 @@
     <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+    <script>
+        function kontrol(){
+            if (document.form.baslamatarihi.value == ""){
+                alert ( "Staja Başlama Tarihi Giriniz" );
+                return false;
+            }
+            if (document.form.bitistarihi.value == ""){
+                alert ( "Staj Bitiş Tarihi Giriniz" );
+                return false;
+            }
+            if (document.form.stajpuani.value == ""){
+                alert ( "Staj Bitiş Tarihi Giriniz" );
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
 
     <spring:url value="/stajbilgisi/addStajbilgisi" var="addURL" />
 
-    <h2>Yeni Staj Birimi Ekle</h2>
+    <h2>Staj Birimi Ekle / Güncelle</h2>
 
     <form:form modelAttribute="stajbilgisiForm" method="post" action="${addURL}" cssClass="form" >
 
@@ -106,10 +123,10 @@
 
         <div class="form-group">
             <label>Yorum</label>
-            <form:input path="yorum" cssClass="form-control" id="yorum" />
+            <form:input path="yorum" cssClass="form-control" id="yorum" maxlength="500"/>
         </div>
 
-        <button type="submit" class="btn btn-success">Staj Bilgisi Ekle / Güncelle</button>
+        <button type="submit" class="btn btn-success">Staj Birimi Ekle / Güncelle</button>
 
         </form:form>
 

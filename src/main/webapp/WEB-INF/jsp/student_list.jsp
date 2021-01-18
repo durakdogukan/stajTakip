@@ -62,6 +62,10 @@
     <br/>
     <br/>
     <br/> Hoşgeldin, ${danisman.ad} ${danisman.soyad} !
+
+<%--    <jsp:text>${message}"</jsp:text>--%>
+<%--    ${message}--%>
+
     <br/>
     <br/>
     <li class="active"><a href="/student/list">Öğrenci Bilgileri</a></li>
@@ -90,21 +94,28 @@
   <div class="col-sm-10">
    <div class="well">
 
+    <c:if test="${message != null}">
+     <div class="alert alert-danger" role="alert"> ${message} </div>
+    </c:if>
+
+    <c:if test="${message == null}">
+           <div class="alert alert-primary" role="alert"> ${message} </div>
+    </c:if>
 
     <table class="table table-striped">
      <thead class="thead-dark">
-     <th scope="row">First Name</th>
-     <th scope="row">Last Name</th>
-     <th scope="row">Number</th>
+     <th scope="row">Ad</th>
+     <th scope="row">Soyad</th>
+     <th scope="row">Numara</th>
      <th scope="row">E-mail</th>
-     <th scope="row">Phone</th>
-     <th scope="row">Gender</th>
-     <th scope="row">Birthday</th>
-     <th scope="row">Department</th>
-     <th scope="row">Danisman</th>
-     <th scope="row">Username</th>
-     <th scope="row">Update</th>
-     <th scope="row">Delete</th>
+     <th scope="row">Telefon</th>
+     <th scope="row">Cinsiyet</th>
+     <th scope="row">Doğum Günü</th>
+     <th scope="row">Bölümü</th>
+     <th scope="row">Danışmanı</th>
+     <th scope="row">Kullanıcı Adı</th>
+     <th scope="row">Güncelle</th>
+     <th scope="row">Sil</th>
      </thead>
      <tbody>
 
@@ -133,20 +144,18 @@
 
        <td>
         <spring:url value="/student/editStudent/${student.id}" var="editURL" />
-        <a class="btn btn-info" href="${editURL}" role="button" >Update</a>
+        <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>
        </td>
        <td>
         <spring:url value="/student/deleteStudent/${student.id}" var="deleteURL" />
-        <a class="btn btn-danger" href="${deleteURL}" role="button" >Delete</a>
+        <a class="btn btn-danger" href="${deleteURL}" role="button" >Sil</a>
        </td>
       </tr>
      </c:forEach>
      </tbody>
     </table>
     <spring:url value="/student/addStudent/" var="addURL" />
-    <a class="btn btn-success" href="${addURL}" role="button" >Add New Student</a>
-
-
+    <a class="btn btn-success" href="${addURL}" role="button" >Yeni Öğrenci Ekle</a>
 
    </div>
 

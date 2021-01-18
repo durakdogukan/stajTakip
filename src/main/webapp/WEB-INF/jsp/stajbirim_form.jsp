@@ -20,6 +20,35 @@
     <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+    <script>
+        function kontrol(){
+            if (document.form.ad.value == ""){
+                alert ( "Staj birim Giriniz" );
+                return false;
+            }
+            if (document.form.kontaktad.value == ""){
+                alert ( "Kontakt Ad Giriniz" );
+                return false;
+            }
+            if (document.form.kontaktsoyad.value == ""){
+                alert ( "Kontakt Soyad Giriniz" );
+                return false;
+            }
+            if (document.form.kontaktunvan.value == ""){
+                alert ( "Kontakt Unvan Giriniz" );
+                return false;
+            }
+            if (document.form.kontakttel.value == ""){
+                alert ( "Kontakt Telefon Numarası Giriniz" );
+                return false;
+            }
+            if (document.form.kontaktemail.value == ""){
+                alert ( "Kontakt E-mail Giriniz" );
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -28,7 +57,7 @@
 
     <h2>Yeni Staj Birimi Ekle</h2>
 
-    <form:form modelAttribute="stajbirimForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form  name="form" modelAttribute="stajbirimForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();">
 
         <form:hidden path="id"/>
 
@@ -43,21 +72,21 @@
 
             </form:select>
 
-            <div class="form-group">
+        <div class="form-group">
 
         <div class="form-group">
             <label>Staj Birimi Adı</label>
-            <form:input path="ad" cssClass="form-control" id="ad" />
+            <form:input path="ad" cssClass="form-control" id="ad" maxlength="45"/>
         </div>
 
         <div class="form-group">
             <label>Kontakt Ad</label>
-            <form:input path="kontaktad" cssClass="form-control" id="kontaktad" />
+            <form:input path="kontaktad" cssClass="form-control" id="kontaktad" maxlength="15"/>
         </div>
 
         <div class="form-group">
             <label>Kontakt Soyad</label>
-            <form:input path="kontaktsoyad" cssClass="form-control" id="kontaktsoyad" />
+            <form:input path="kontaktsoyad" cssClass="form-control" id="kontaktsoyad" maxlength="20"/>
         </div>
 
         <div class="form-group">
@@ -67,12 +96,12 @@
 
         <div class="form-group">
             <label>Kontakt Telefon</label>
-            <form:input path="kontakttel" cssClass="form-control" id="kontakttel" />
+            <form:input path="kontakttel" type="number" cssClass="form-control" id="kontakttel" maxlength="11"/>
         </div>
 
         <div class="form-group">
              <label>Kontakt Email</label>
-             <form:input path="kontaktemail" cssClass="form-control" id="kontaktemail" />
+             <form:input path="kontaktemail" cssClass="form-control" id="kontaktemail" maxlength="45"/>
         </div>
 
                 <button type="submit" class="btn btn-success">Staj Birim Ekle / Güncelle</button>

@@ -23,104 +23,136 @@
 <html>
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>Add Student</title>
+ <title>Öğrenci Ekle / Güncelle</title>
  <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
  <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+ <script>
+  function kontrol(){
+   if (document.form.firstname.value == ""){
+    alert ( "Öğrenci Adını Giriniz" );
+    return false;
+   }
+   if (document.form.lastname.value == ""){
+    alert ( "Öğrenci Soyadı Giriniz" );
+    return false;
+   }
+   if (document.form.number.value == ""){
+    alert ( "Öğrenci Numarası Giriniz" );
+    return false;
+   }
+   if (document.form.email.value == ""){
+    alert ( "Öğrenci Email Giriniz" );
+    return false;
+   }
+   if (document.form.phone.value == ""){
+    alert ( "Öğrenci Telefon Numarasını Giriniz" );
+    return false;
+   }
+   if (document.form.birthday.value == ""){
+    alert ( "Öğrenci Doğum Tarihi Giriniz" );
+    return false;
+   }
+   if (document.form.department.value == ""){
+    alert ( "Öğrenci Bölümü Giriniz" );
+    return false;
+   }
+   if (document.form.danisman.value == ""){
+    alert ( "Öğrenci Danışman Giriniz" );
+    return false;
+   }
+   if (document.form.danisman.value == ""){
+    alert ( "Öğrenci User Giriniz" );
+    return false;
+   }
+   return true;
+  }
+ </script>
 </head>
 <body>
  <div class="container">
   <spring:url value="/student/addStudent" var="addURL" />
 
-  <h2>Add Student</h2>
-
-  <form:form modelAttribute="studentForm" method="post" action="${addURL}" cssClass="form" >
+  <h2>Öğrenci Ekle / Güncelle</h2>
+  <form:form name="form" modelAttribute="studentForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();">
 
    <form:hidden path="id"/>
 
    <div class="form-group">
-    <label>First Name</label>
-    <form:input path="firstname" cssClass="form-control" id="firstname" />
+    <label>Öğrencinin Adı</label>
+    <form:input path="firstname" cssClass="form-control" id="firstname" maxlength="20"/>
    </div>
 
    <div class="form-group">
-    <label>Last Name</label>
-    <form:input path="lastname" cssClass="form-control" id="lastname" />
+    <label>Öğrencinin Soyadı</label>
+    <form:input path="lastname" cssClass="form-control" id="lastname" maxlength="30"/>
    </div>
 
    <div class="form-group">
-    <label>Number</label>
-    <form:input path="number" cssClass="form-control" id="number" />
+    <label>Öğrencinin Numarası</label>
+    <form:input path="number" type="number" cssClass="form-control" id="number" maxlength="15"/>
    </div>
 
    <div class="form-group">
-    <label>Email</label>
-    <form:input path="email" cssClass="form-control" id="email" />
+    <label>Öğrencinin E-mail Adresi</label>
+    <form:input path="email" cssClass="form-control" id="email" maxlength="45"/>
    </div>
 
    <div class="form-group">
-    <label>Phone</label>
-    <form:input path="phone" cssClass="form-control" id="phone" />
+    <label>Öğrencinin Telefonu</label>
+    <form:input path="phone" type="number" cssClass="form-control" id="phone" maxlength="11"/>
    </div>
 
    <div class="form-group">
-    <label>Gender</label>
-<%--    <form:input path="gender" cssClass="form-control" id="gender" />--%>
 
+    <label>Öğrencinin Cinsiyeti</label>
      <form:select path = "gender" id = "gender" cssClass="form-control">
 
-      <form:option disabled="true" value = "" label = "Cinsiyet Seçiniz" />
-      <form:option value = "E" label = "Erkek" />
-      <form:option value = "K" label = "Kadın" />
-      <form:option value = "D" label = "Diğer" />
+        <form:option disabled="true" value = "" label = "Cinsiyet Seçiniz" />
+        <form:option value = "E" label = "Erkek" />
+        <form:option value = "K" label = "Kadın" />
+        <form:option value = "D" label = "Diğer" />
 
      </form:select>
+
    </div>
 
    <div class="form-group">
-    <label>Birthday</label>
+    <label>Öğrencinin Doğum Tarihi</label>
     <form:input path="birthday" type="date" cssClass="form-control"  id="birthday" name="trip-start"/>
    </div>
 
    <div class="form-group">
-    <label>Department</label>
-    <form:input path="department" cssClass="form-control" id="department" />
+    <label>Öğrencinin Bölümü</label>
+    <form:input path="department" cssClass="form-control" id="department" maxlength="45"/>
    </div>
-
-<%--   <div class="form-group">--%>
-<%--    <label>Danisman</label>--%>
-<%--    <form:input path="danisman" cssClass="form-control" id="danisman" />--%>
-<%--   </div>--%>
 
 
    <div class="form-group">
-    <label>Danisman</label>
+    <label>Öğrencinin Danışmanı</label>
 
     <form:select path = "danisman" id = "danisman" cssClass="form-control">
 
-     <form:option disabled="true" value = "" label = "Danisman Seçiniz" />
-     <form:options items = "${danismanList}" itemLabel="fullname"/>
+       <form:option disabled="true" value = "" label = "Danisman Seçiniz" />
+       <form:options items = "${danismanList}" itemLabel="fullname"/>
 
     </form:select>
-
-
-
- <div class="form-group">
-
-    <label>User</label>
-<%--    <form:input path="user" cssClass="form-control" id="user" />--%>
-
-    <form:select path = "user" id = "user" cssClass="form-control">
-
-     <form:option disabled="true" value = "" label = "Kullanıcı Seçiniz" />
-     <form:options items = "${userList}" itemLabel="username"/>
-
-    </form:select>
-
    </div>
 
 
-   <button type="submit" class="btn btn-success">Add Student</button>
+    <div class="form-group">
+    <label>Öğrencinin Kullanıcı Adı</label>
+
+    <form:select path = "user" id = "user" cssClass="form-control">
+
+       <form:option disabled="true" value = "" label = "Kullanıcı Seçiniz" />
+       <form:options items = "${userList}" itemLabel="username"/>
+
+    </form:select>
+   </div>
+
+
+   <button type="submit" class="btn btn-success">Öğrenci Ekle / Güncelle</button>
   </form:form>
   
  </div>

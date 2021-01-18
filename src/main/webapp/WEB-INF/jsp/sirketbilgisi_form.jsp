@@ -16,19 +16,40 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Sirket Bilgisi Ekle / Güncelle</title>
+    <title>Şirket Bilgisi Ekle / Güncelle</title>
     <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+    <script>
+        function kontrol(){
+            if (document.form.ad.value == ""){
+                alert ( "Şirket Adı Giriniz" );
+                return false;
+            }
+            if (document.form.sehir.value == ""){
+                alert ( "Şehir Giriniz" );
+                return false;
+            }
+            if (document.form.adres.value == ""){
+                alert ( "Adres Giriniz" );
+                return false;
+            }
+            if (document.form.website.value == ""){
+                alert ( "Website Giriniz" );
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
 
     <spring:url value="/sirketbilgisi/addSirketbilgisi" var="addURL" />
 
-    <h2>Add User</h2>
+    <h2>Şirket Bilgisi Ekle / Güncelle </h2>
 
-    <form:form modelAttribute="sirketbilgisiForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form name="form" modelAttribute="sirketbilgisiForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();" >
 
         <form:hidden path="id"/>
 
@@ -52,7 +73,7 @@
             <form:input path="website" cssClass="form-control" id="password" />
         </div>
 
-        <button type="submit" class="btn btn-success">Sirket Bilgisi Ekle / Güncelle</button>
+        <button type="submit" class="btn btn-success">Şirket Bilgisi Ekle / Güncelle</button>
     </form:form>
 
 </div>

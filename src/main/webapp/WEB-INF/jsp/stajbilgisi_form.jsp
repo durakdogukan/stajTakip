@@ -22,6 +22,15 @@
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
 </head>
+<script>
+    function kontrol(){
+        if (document.form.ad.value == ""){
+            alert ( "Staja Başlama Tarihi Giriniz" );
+            return false;
+        }
+        return true;
+    }
+</script>
 <body>
 <div class="container">
 
@@ -29,7 +38,7 @@
 
     <h2>Yeni Staj Birimi Ekle</h2>
 
-    <form:form modelAttribute="stajbilgisiForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form name="form" modelAttribute="stajbilgisiForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();" >
 
         <form:hidden path="id"/>
 
@@ -92,23 +101,6 @@
             <form:input path="baslamatarihi" type="date" cssClass="form-control"  id="baslamatarihi" name="trip-start" />
         </div>
 
-
-<%--        <div class="form-group">--%>
-<%--            <label>Staj Bitiş Tarihi</label>--%>
-<%--            <form:input path="bitistraihi" type="date" cssClass="form-control"  id="bitistraihi" name="trip-start"/>--%>
-
-<%--        </div>--%>
-
-
-<%--        <div class="form-group">--%>
-<%--            <label>Staj Puanı</label>--%>
-<%--            <form:input path="stajpuani" cssClass="form-control" id="stajpuani" />--%>
-<%--        </div>--%>
-
-<%--        <div class="form-group">--%>
-<%--            <label>Yorum</label>--%>
-<%--            <form:input path="yorum" cssClass="form-control" id="yorum" />--%>
-<%--        </div>--%>
 
         <button type="submit" class="btn btn-success">Staj Bilgisi Ekle / Güncelle</button>
 

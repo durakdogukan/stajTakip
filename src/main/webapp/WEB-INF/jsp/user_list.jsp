@@ -21,7 +21,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Student List</title>
+    <title>Kullanıcı Bilgileri</title>
     <%--    <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />--%>
     <%--    <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>--%>
     <%--    <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>--%>
@@ -82,6 +82,13 @@
         <div class="col-sm-10">
             <div class="well">
 
+                <c:if test="${message != null}">
+                    <div class="alert alert-danger" role="alert"> ${message} </div>
+                </c:if>
+
+                <c:if test="${message == null}">
+                    <div class="alert alert-primary" role="alert"> ${message} </div>
+                </c:if>
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <th scope="row">UserName</th>
@@ -89,8 +96,8 @@
                     <th scope="row">Name</th>
                     <th scope="row">Lastname</th>
                     <th scope="row">Danisman</th>
-                    <th scope="row">Update</th>
-                    <th scope="row">Delete</th>
+                    <th scope="row">Güncelle</th>
+                    <th scope="row">Sil</th>
                     </thead>
                     <tbody>
 
@@ -121,12 +128,12 @@
 
                             <td>
                                 <spring:url value="/user/editUser/${user.id}" var="editURL" />
-                                <a class="btn btn-info" href="${editURL}" role="button" >Update</a>
+                                <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>
                             </td>
 
                             <td>
                                 <spring:url value="/user/deleteUser/${user.id}" var="deleteURL" />
-                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Delete</a>
+                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Sil</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -134,7 +141,7 @@
                 </table>
 
                 <spring:url value="/user/addUser/" var="addURL" />
-                <a class="btn btn-success" href="${addURL}" role="button" >Add New User</a>
+                <a class="btn btn-success" href="${addURL}" role="button" >Yeni Kullanıcı Ekle</a>
 
 
 

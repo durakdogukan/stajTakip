@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -71,9 +72,24 @@ public class SirketbilgisiController {
 
 
     @RequestMapping(value="/addSirketbilgisi", method=RequestMethod.POST)
-    public ModelAndView add(@ModelAttribute("sirketbilgisiForm") Sirketbilgisi sirketbilgisi) {
+    public ModelAndView add(@ModelAttribute("sirketbilgisiForm") Sirketbilgisi sirketbilgisi, RedirectAttributes redirAttrs) {
+
+
+        for(Sirketbilgisi sirketbilgisi2: sirketbilgisiService.getAllSirketbilgisi())
+        {
+
+            if (sirketbilgisi2.getAd().equals(sirketbilgisi.getAd()))
+            {
+
+                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Şirket Kayıtlarda Mevcut");
+                return new ModelAndView("redirect:/sirketbilgisi/list");
+
+            }
+
+        }
 
         sirketbilgisiService.addSirketbilgisi(sirketbilgisi);
+        redirAttrs.addFlashAttribute("message", "Şirket Bilgisi Başarıyla Oluşturuldu ");
         return new ModelAndView("redirect:/sirketbilgisi/list");
 
     }

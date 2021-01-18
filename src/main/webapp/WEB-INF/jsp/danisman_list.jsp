@@ -74,12 +74,20 @@
 
         <div class="col-sm-10">
             <div class="well">
+
+                <c:if test="${message != null}">
+                    <div class="alert alert-danger" role="alert"> ${message} </div>
+                </c:if>
+
+                <c:if test="${message == null}">
+                    <div class="alert alert-primary" role="alert"> ${message} </div>
+                </c:if>
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <th scope="row">Danışman Ad Soyad</th>
                     <th scope="row">Username</th>
-                    <th scope="row">Update</th>
-                    <th scope="row">Delete</th>
+                    <th scope="row">Güncelle</th>
+                    <th scope="row">Sil</th>
                     </thead>
                     <tbody>
                     <c:forEach items="${danismanList}" var="danisman" >
@@ -89,12 +97,12 @@
 
                             <td>
                                 <spring:url value="/danisman/editDanisman/${danisman.id}" var="editURL" />
-                                <a class="btn btn-info" href="${editURL}" role="button" >Update</a>
+                                <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>
                             </td>
 
                             <td>
                                 <spring:url value="/danisman/deleteDanisman/${danisman.id}" var="deleteURL" />
-                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Delete</a>
+                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Sil</a>
                             </td>
                         </tr>
                     </c:forEach>

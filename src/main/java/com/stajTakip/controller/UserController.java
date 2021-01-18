@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.stajTakip.model.User;
 
 import com.stajTakip.services.UserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value="/user")
@@ -62,7 +63,19 @@ public class UserController {
 
 
     @RequestMapping(value="/addUser", method=RequestMethod.POST)
-    public ModelAndView add(@ModelAttribute("userForm") User user) {
+    public ModelAndView add(@ModelAttribute("userForm") User user, RedirectAttributes redirAttrs) {
+
+        for(User user2: userService.getAllUsers())
+        {
+
+            if (user2.getUsername().equals(user.getUsername()))
+            {
+
+                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Kullanıcı İsmi Kayıtlarda Mevcut");
+                return new ModelAndView("redirect:/user/list");
+            }
+
+        }
 
         userService.addUser(user);
         return new ModelAndView("redirect:/user/list");

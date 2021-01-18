@@ -26,30 +26,41 @@
     <link href="../../webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
+    <script>
+        function kontrol(){
+            if (document.form.username.value == ""){
+                alert ( "Kullanıcı Adı Giriniz" );
+                return false;
+            }
+            if (document.form.password.value == ""){
+                alert ( "Parola Giriniz" );
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <spring:url value="/user/addUser" var="addURL" />
 
-    <h2>Add User</h2>
+    <h2>Kullanıcı Ekle / Güncelle</h2>
 
-    <form:form modelAttribute="userForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form name="form" modelAttribute="userForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();">
 
         <form:hidden path="id"/>
 
         <div class="form-group">
             <label>Username</label>
-            <form:input path="username" cssClass="form-control" id="username" />
+            <form:input path="username" cssClass="form-control" id="username" maxlength="20" placeholder="Kullanıcı Adı Giriniz"/>
         </div>
 
         <div class="form-group">
             <label>Password</label>
-            <form:input path="password" cssClass="form-control" id="password" type="password" />
+            <form:input path="password" cssClass="form-control" id="password" type="password" maxlength="20" placeholder="Şifre Giriniz"/>
         </div>
 
-
-
-        <button type="submit" class="btn btn-success">Add User</button>
+        <button type="submit" class="btn btn-success">Kullanıcı Ekle / Güncelle</button>
     </form:form>
 
 </div>

@@ -19,11 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.stajTakip.model.Student;
 
 import com.stajTakip.services.StudentService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
 @RequestMapping(value="/student")
 public class StudentController {
+
+	public int control = 0;
 
 	@Autowired
 	StudentService studentService;
@@ -58,7 +61,6 @@ public class StudentController {
 
 	  List<User> userList = userService.getAllUsers();
 	  model.addObject("userList", userList );
-
 	  model.setViewName("student_form");
 	  
 	  return model;
@@ -88,10 +90,26 @@ public class StudentController {
 
 
 	 @RequestMapping(value="/addStudent", method=RequestMethod.POST)
-	 public ModelAndView add(@ModelAttribute("studentForm") Student student) {
+	 public ModelAndView add(@ModelAttribute("studentForm") Student student, RedirectAttributes redirAttrs) {
+
+
+	  System.out.println(student.getFullname());
+
+			 for(Student student2: studentService.getAllStudents())
+			 {
+
+				 if (student2.getNumber().equals(student.getNumber()))
+				 {
+
+					 redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Öğrenci Numarası Kayıtlarda Mevcut");
+					 return new ModelAndView("redirect:/student/list");
+
+
+				 }
+			 }
 
 	  studentService.addStudent(student);
-	  System.out.println(student.getFullname());
+	  redirAttrs.addFlashAttribute("message", "Öğrenci Başarıyla Oluşturuldu ");
 	  return new ModelAndView("redirect:/student/list");
 	  
 	 }

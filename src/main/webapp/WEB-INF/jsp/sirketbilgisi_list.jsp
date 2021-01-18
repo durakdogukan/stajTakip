@@ -18,7 +18,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Şirket Bilgisi List</title>
+    <title>Şirket Bilgileri</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -75,14 +75,21 @@
         <div class="col-sm-10">
             <div class="well">
 
+                <c:if test="${message != null}">
+                    <div class="alert alert-danger" role="alert"> ${message} </div>
+                </c:if>
+
+                <c:if test="${message == null}">
+                    <div class="alert alert-primary" role="alert"> ${message} </div>
+                </c:if>
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <th scope="row">Şirket Adı</th>
                     <th scope="row">Adres</th>
                     <th scope="row">Şehir</th>
                     <th scope="row">Web Site</th>
-                    <th scope="row">Update</th>
-                    <th scope="row">Delete</th>
+                    <th scope="row">Güncelle</th>
+                    <th scope="row">Sil</th>
                     </thead>
                     <tbody>
                     <c:forEach items="${sirketbilgisiList}" var="sirketbilgisi" >
@@ -94,12 +101,12 @@
 
                             <td>
                                 <spring:url value="/sirketbilgisi/editSirketbilgisi/${sirketbilgisi.id}" var="editURL" />
-                                <a class="btn btn-info" href="${editURL}" role="button" >Update</a>
+                                <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>
                             </td>
 
                             <td>
                                 <spring:url value="/sirketbilgisi/deleteSirketbilgisi/${sirketbilgisi.id}" var="deleteURL" />
-                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Delete</a>
+                                <a class="btn btn-danger" href="${deleteURL}" role="button" >Sil</a>
                             </td>
                         </tr>
                     </c:forEach>
