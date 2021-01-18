@@ -48,8 +48,10 @@ public class StajbirimController {
         List<Sirketbilgisi> sirketbilgisiList = sirketbilgisiService.getAllSirketbilgisi();
         model.addObject("sirketbilgisiList", sirketbilgisiList );
 
-        model.setViewName("stajbirim_form");
+        List<Stajbirim> stajbirimList = stajbirimService.getAllStajbirim();
+        model.addObject("stajbirimList", stajbirimList );
 
+        model.setViewName("stajbirim_form");
         return model;
     }
 
@@ -65,8 +67,10 @@ public class StajbirimController {
         List<Sirketbilgisi> sirketbilgisiList = sirketbilgisiService.getAllSirketbilgisi();
         model.addObject("sirketbilgisiList", sirketbilgisiList );
 
-        model.setViewName("stajbirim_form");
+        List<Stajbirim> stajbirimList = stajbirimService.getAllStajbirim();
+        model.addObject("stajbirimList", stajbirimList );
 
+        model.setViewName("stajbirim_form");
         return model;
     }
 
@@ -75,20 +79,6 @@ public class StajbirimController {
 
     @RequestMapping(value="/addStajbirim", method=RequestMethod.POST)
     public ModelAndView add(@ModelAttribute("stajbirimForm") Stajbirim stajbirim, RedirectAttributes redirAttrs) {
-
-        for(Stajbirim stajbirim2: stajbirimService.getAllStajbirim())
-        {
-
-            if (stajbirim2.getAd().equals(stajbirim.getAd())
-                                                             && stajbirim2.getSirketbilgisi().equals(stajbirim.getSirketbilgisi())
-            )
-            {
-
-                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Şirket - Staj Birim Kayıtlarda Mevcut");
-                return new ModelAndView("redirect:/stajbirim/list");
-            }
-
-        }
 
 
 
@@ -101,8 +91,11 @@ public class StajbirimController {
     @RequestMapping(value="/deleteStajbirim/{id}", method=RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") int id) {
 
-        stajbirimService.deleteStajbirim(id);
-        return new ModelAndView("redirect:/stajbirim/list");
-
+        try {
+            stajbirimService.deleteStajbirim(id);
+            return new ModelAndView("redirect:/stajbirim/list");
+        }catch (Exception e){
+            return new ModelAndView("redirect:/stajbirim/list");
+        }
     }
 }

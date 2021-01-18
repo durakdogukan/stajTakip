@@ -28,6 +28,7 @@
  <script src="../../webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
  <script src="../../webjars/jquery/3.0.0/js/jquery.min.js"></script>
  <script>
+
   function kontrol(){
    if (document.form.firstname.value == ""){
     alert ( "Öğrenci Adını Giriniz" );
@@ -41,6 +42,16 @@
     alert ( "Öğrenci Numarası Giriniz" );
     return false;
    }
+
+   <c:forEach items="${studentList}" var="student" >
+
+    if ((document.form.number.value == "${student.number}") && (document.form.user.value != "${student.user.id}")){
+     alert("Bu Öğrenci Numarası Sistemde Kayıtlıdır !\r\n" + "${student.firstname}" + " ${student.lastname} " + (document.form.number.value))
+     return false;
+    }
+
+   </c:forEach>
+
    if (document.form.email.value == ""){
     alert ( "Öğrenci Email Giriniz" );
     return false;
@@ -61,19 +72,29 @@
     alert ( "Öğrenci Danışman Giriniz" );
     return false;
    }
-   if (document.form.danisman.value == ""){
+   if (document.form.user.value == ""){
     alert ( "Öğrenci User Giriniz" );
     return false;
    }
+   <c:forEach items="${studentList}" var="student" >
+
+   <%--if ((document.form.user.value != "${student.user.id}")){--%>
+   <%-- alert("Yanlış Kullanıcı Girdiniz !")--%>
+   <%-- return false;--%>
+   <%--}--%>
+
+   </c:forEach>
    return true;
   }
  </script>
 </head>
 <body>
+ <br/>
  <div class="container">
   <spring:url value="/student/addStudent" var="addURL" />
 
   <h2>Öğrenci Ekle / Güncelle</h2>
+  <br/>
   <form:form name="form" modelAttribute="studentForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();">
 
    <form:hidden path="id"/>
@@ -92,6 +113,7 @@
     <label>Öğrencinin Numarası</label>
     <form:input path="number" type="number" cssClass="form-control" id="number" maxlength="15"/>
    </div>
+
 
    <div class="form-group">
     <label>Öğrencinin E-mail Adresi</label>

@@ -20,11 +20,11 @@ public class User {
     private String password;
 
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Student student;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     @PrimaryKeyJoinColumn
     private Danisman danisman;
 

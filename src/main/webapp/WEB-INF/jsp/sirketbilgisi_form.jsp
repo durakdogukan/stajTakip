@@ -4,6 +4,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     Danisman danisman = (Danisman) request.getSession().getAttribute("danisman");
@@ -38,6 +39,20 @@
                 alert ( "Website Giriniz" );
                 return false;
             }
+
+            <c:forEach items="${sirketbilgisiList}" var="sirketbilgisi" >
+
+                if ((document.form.ad.value == "${sirketbilgisi.ad}") && (document.form.sehir.value == "${sirketbilgisi.sehir}") && (document.form.adres.value == "${sirketbilgisi.adres}") && (document.form.website.value == "${sirketbilgisi.website}")){
+                    alert("Bu Şirket Sistemde Kayıtlıdır !\r\n" + "${sirketbilgisi.ad}" );
+                    return false;
+                }
+
+                if ((document.form.ad.value == "${sirketbilgisi.ad}")){
+                    alert("Bu Şirket Sistemde Kayıtlıdır !\r\n" + "${sirketbilgisi.ad}" );
+                    return false;
+                }
+            </c:forEach>
+
             return true;
         }
     </script>

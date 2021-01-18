@@ -115,8 +115,6 @@
                 <spring:url value="/sirketbilgisi/addSirketbilgisi/" var="addURL" />
                 <a class="btn btn-success" href="${addURL}" role="button" >Yeni Sirket Bilgisi Ekle</a>
 
-
-
             </div>
 
         </div>

@@ -37,7 +37,71 @@
             background-color: #f1f1f1;
             height: 100%;
         }
+
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
     </style>
+    <script>
+        // When the user clicks on div, open the popup
+        function myFunction() {
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+    </script>
 </head>
 <body>
 
@@ -101,8 +165,24 @@
                             <c:if test="${stajbilgisi.stajpuani == 0}">
                                 <td></td>
                             </c:if>
-                            <td width="10%">${stajbilgisi.yorum}</td>
-
+                            <td width="10%" style="word-break: break-all; ">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Yorumu Okumak İçin Tıkla
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body">
+                                                ${stajbilgisi.yorum}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td>
                                 <spring:url value="/stajbilgisi/editStajbilgisi/${stajbilgisi.id}" var="editURL" />
                                 <a class="btn btn-info" href="${editURL}" role="button" >Güncelle</a>

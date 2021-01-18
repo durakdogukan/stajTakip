@@ -163,14 +163,27 @@
                     <th scope="row">Şehir</th>
                     <th scope="row">Web Site</th>
                     </thead>
-                    <tbody>
+
+                    <c:if test="${sirketbilgisi} != null">
+                        <tbody>
                         <tr>
                             <td>${sirketbilgisi.ad}</td>
                             <td>${sirketbilgisi.sehir}</td>
                             <td>${sirketbilgisi.adres}</td>
                             <td>${sirketbilgisi.website}</td>
                         </tr>
-                    </tbody>
+                        </tbody>
+                    </c:if>
+                    <c:if test="${sirketbilgisi} == null">
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </c:if>
                 </table>
 
                 <br/>

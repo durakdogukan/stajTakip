@@ -16,7 +16,7 @@ public class Stajbilgisi {
     @Column(name="baslamatarihi", nullable = false)
     private java.sql.Date baslamatarihi;
 
-    @Column(name="bitistraihi", nullable = true , columnDefinition = "NULL")
+    @Column(name="bitistraihi", nullable = true)
     private java.sql.Date bitistraihi;
 
     @Column(name="stajpuani", nullable = true)
@@ -26,11 +26,11 @@ public class Stajbilgisi {
     private String yorum;
 
     @ManyToOne
-    @JoinColumn(name="student_id", nullable=false)
+    @JoinColumn(name="student_id")
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name="stajbirim_id", nullable=false)
+    @JoinColumn(name="stajbirim_id")
     private Stajbirim stajbirim;
 
 

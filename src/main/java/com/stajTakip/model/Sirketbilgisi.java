@@ -30,11 +30,12 @@ public class Sirketbilgisi {
     @Column(name="adres", nullable = false, length = 100)
     private String adres;
 
+
 //    @OneToOne(mappedBy = "sirketbilgisi", cascade = CascadeType.ALL)
 //    @PrimaryKeyJoinColumn
 //    private Stajbirim stajbirim;
 
-    @OneToMany(mappedBy="sirketbilgisi")
+    @OneToMany(mappedBy="sirketbilgisi", cascade = CascadeType.REMOVE)
     private Set<Stajbirim> stajbirim;
 
 

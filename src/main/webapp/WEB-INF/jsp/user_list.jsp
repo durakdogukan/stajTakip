@@ -82,20 +82,20 @@
         <div class="col-sm-10">
             <div class="well">
 
+                <spring:url value="/user/addUser/" var="addURL" />
+                <a class="btn btn-success pull-right" href="${addURL}" role="button" >Yeni Kullanıcı Ekle</a>
+
                 <c:if test="${message != null}">
-                    <div class="alert alert-danger" role="alert"> ${message} </div>
+                    <div class="alert alert-success" role="alert"> ${message} </div>
                 </c:if>
 
-                <c:if test="${message == null}">
-                    <div class="alert alert-primary" role="alert"> ${message} </div>
-                </c:if>
                 <table class="table table-striped">
                     <thead class="thead-dark">
-                    <th scope="row">UserName</th>
-                    <th scope="row">Password</th>
-                    <th scope="row">Name</th>
-                    <th scope="row">Lastname</th>
-                    <th scope="row">Danisman</th>
+                    <th scope="row">Kullanıcı Adı</th>
+                    <th scope="row">Şifre</th>
+                    <th scope="row">İsim</th>
+                    <th scope="row">Soyisim</th>
+                    <th scope="row">Danışman</th>
                     <th scope="row">Güncelle</th>
                     <th scope="row">Sil</th>
                     </thead>
@@ -139,15 +139,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
-
-                <spring:url value="/user/addUser/" var="addURL" />
-                <a class="btn btn-success" href="${addURL}" role="button" >Yeni Kullanıcı Ekle</a>
-
-
-
-
             </div>
-
         </div>
     </div>
 </div>

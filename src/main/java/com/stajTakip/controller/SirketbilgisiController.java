@@ -48,8 +48,10 @@ public class SirketbilgisiController {
         Sirketbilgisi sirketbilgisi = new Sirketbilgisi();
         model.addObject("sirketbilgisiForm", sirketbilgisi);
 
-        model.setViewName("sirketbilgisi_form");
+        List<Sirketbilgisi> sirketbilgisiList = sirketbilgisiService.getAllSirketbilgisi();
+        model.addObject("sirketbilgisiList", sirketbilgisiList);
 
+        model.setViewName("sirketbilgisi_form");
         return model;
     }
 
@@ -62,9 +64,10 @@ public class SirketbilgisiController {
         Sirketbilgisi sirketbilgisi = sirketbilgisiService.getSirketbilgisiId(id);
         model.addObject("sirketbilgisiForm", sirketbilgisi);
 
+        List<Sirketbilgisi> sirketbilgisiList = sirketbilgisiService.getAllSirketbilgisi();
+        model.addObject("sirketbilgisiList", sirketbilgisiList);
 
         model.setViewName("sirketbilgisi_form");
-
         return model;
     }
 
@@ -75,21 +78,8 @@ public class SirketbilgisiController {
     public ModelAndView add(@ModelAttribute("sirketbilgisiForm") Sirketbilgisi sirketbilgisi, RedirectAttributes redirAttrs) {
 
 
-        for(Sirketbilgisi sirketbilgisi2: sirketbilgisiService.getAllSirketbilgisi())
-        {
-
-            if (sirketbilgisi2.getAd().equals(sirketbilgisi.getAd()))
-            {
-
-                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Şirket Kayıtlarda Mevcut");
-                return new ModelAndView("redirect:/sirketbilgisi/list");
-
-            }
-
-        }
-
         sirketbilgisiService.addSirketbilgisi(sirketbilgisi);
-        redirAttrs.addFlashAttribute("message", "Şirket Bilgisi Başarıyla Oluşturuldu ");
+        redirAttrs.addFlashAttribute("message", "Şirket Bilgisi Kaydı Oluşturuldu ");
         return new ModelAndView("redirect:/sirketbilgisi/list");
 
     }
@@ -97,8 +87,11 @@ public class SirketbilgisiController {
     @RequestMapping(value="/deleteSirketbilgisi/{id}", method=RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") int id) {
 
-        sirketbilgisiService.deleteSirketbilgisi(id);
-        return new ModelAndView("redirect:/sirketbilgisi/list");
-
+        try {
+            sirketbilgisiService.deleteSirketbilgisi(id);
+            return new ModelAndView("redirect:/sirketbilgisi/list");
+        }catch (Exception e){
+            return new ModelAndView("redirect:/sirketbilgisi/list");
+        }
     }
 }

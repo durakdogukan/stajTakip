@@ -43,6 +43,9 @@ public class UserController {
         ModelAndView model = new ModelAndView();
         User user = new User();
         model.addObject("userForm", user);
+
+        List<User> userList = userService.getAllUsers();
+        model.addObject("userList", userList );
         model.setViewName("user_form");
 
         return model;
@@ -56,6 +59,9 @@ public class UserController {
 
         User user = userService.getUserById(id);
         model.addObject("userForm", user);
+
+        List<User> userList = userService.getAllUsers();
+        model.addObject("userList", userList );
         model.setViewName("user_form");
 
         return model;
@@ -65,19 +71,9 @@ public class UserController {
     @RequestMapping(value="/addUser", method=RequestMethod.POST)
     public ModelAndView add(@ModelAttribute("userForm") User user, RedirectAttributes redirAttrs) {
 
-        for(User user2: userService.getAllUsers())
-        {
-
-            if (user2.getUsername().equals(user.getUsername()))
-            {
-
-                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Kullanıcı İsmi Kayıtlarda Mevcut");
-                return new ModelAndView("redirect:/user/list");
-            }
-
-        }
 
         userService.addUser(user);
+        redirAttrs.addFlashAttribute("message", "Kullanıcı Başarıyla Kaydedildi ");
         return new ModelAndView("redirect:/user/list");
 
     }
@@ -92,8 +88,11 @@ public class UserController {
     @RequestMapping(value="/deleteUser/{id}", method=RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") int id) {
 
-        userService.deleteUser(id);
-        return new ModelAndView("redirect:/user/list");
-
+        try {
+            userService.deleteUser(id);
+            return new ModelAndView("redirect:/user/list");
+        }catch (Exception e){
+            return new ModelAndView("redirect:/user/list");
+        }
     }
 }

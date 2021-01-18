@@ -47,8 +47,10 @@ public class DanismanController {
         List<User> userList = userService.getAllUsers();
         model.addObject("userList", userList );
 
-        model.setViewName("danisman_form");
+        List<Danisman> danismanList = danismanService.getAllDanisman();
+        model.addObject("danismanList", danismanList );
 
+        model.setViewName("danisman_form");
         return model;
     }
 
@@ -63,8 +65,10 @@ public class DanismanController {
         List<User> userList = userService.getAllUsers();
         model.addObject("userList", userList );
 
-        model.setViewName("danisman_form");
+        List<Danisman> danismanList = danismanService.getAllDanisman();
+        model.addObject("danismanList", danismanList );
 
+        model.setViewName("danisman_form");
         return model;
     }
 
@@ -79,19 +83,6 @@ public class DanismanController {
     @RequestMapping(value="/addDanisman", method=RequestMethod.POST)
     public ModelAndView add(@ModelAttribute("danismanForm") Danisman danisman, RedirectAttributes redirAttrs) {
 
-        for(Danisman danisman2: danismanService.getAllDanisman())
-        {
-
-            if (danisman2.getFullname().equals(danisman.getFullname()))
-            {
-
-                redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Danışman Kayıtlarda Mevcut");
-                return new ModelAndView("redirect:/danisman/list");
-
-            }
-
-        }
-
 
         danismanService.addDanisman(danisman);
         redirAttrs.addFlashAttribute("message", "Danışman Başarıyla Oluşturuldu ");
@@ -99,11 +90,13 @@ public class DanismanController {
 
     }
 
-    @RequestMapping(value="/deleteStudent/{id}", method=RequestMethod.GET)
+    @RequestMapping(value="/deleteDanisman/{id}", method=RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") int id) {
-
-        danismanService.deleteDanisman(id);
-        return new ModelAndView("redirect:/danisman/list");
-
+        try {
+            danismanService.deleteDanisman(id);
+            return new ModelAndView("redirect:/danisman/list");
+        }catch (Exception e){
+            return new ModelAndView("redirect:/danisman/list");
+        }
     }
 }

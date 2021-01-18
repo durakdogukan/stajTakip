@@ -98,9 +98,11 @@ public class StajbilgisiController {
     @RequestMapping(value="/deleteStajbilgisi/{id}", method=RequestMethod.GET)
     public ModelAndView delete(@PathVariable("id") int id) {
 
-        stajbilgisiService.deleteStajbilgisi(id);
-        return new ModelAndView("redirect:/stajbilgisi/list");
-
+        try {
+            stajbilgisiService.deleteStajbilgisi(id);
+            return new ModelAndView("redirect:/stajbilgisi/list");
+        }catch (Exception e){
+            return new ModelAndView("redirect:/stajbilgisi/list");
+        }
     }
-
 }

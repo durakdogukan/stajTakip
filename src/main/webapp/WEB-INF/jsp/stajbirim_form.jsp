@@ -4,6 +4,7 @@
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
     Danisman danisman = (Danisman) request.getSession().getAttribute("danisman");
@@ -46,6 +47,7 @@
                 alert ( "Kontakt E-mail Giriniz" );
                 return false;
             }
+
             return true;
         }
     </script>

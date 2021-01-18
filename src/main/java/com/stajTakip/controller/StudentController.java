@@ -53,16 +53,19 @@ public class StudentController {
 	 public ModelAndView addStudent() {
 		 
 	  ModelAndView model = new ModelAndView();
-	  Student student = new Student();
+	  Student student    = new Student();
 	  model.addObject("studentForm", student);
 
 	  List<Danisman> danismanList = danismanService.getAllDanisman();
 	  model.addObject("danismanList", danismanList );
 
+	  List<Student> studentList = studentService.getAllStudents();
+	  model.addObject("studentList", studentList);
+
 	  List<User> userList = userService.getAllUsers();
 	  model.addObject("userList", userList );
+
 	  model.setViewName("student_form");
-	  
 	  return model;
 	 }
 	 
@@ -81,8 +84,10 @@ public class StudentController {
 	  List<User> userList = userService.getAllUsers();
 	  model.addObject("userList", userList );
 
+	  List<Student> studentList = studentService.getAllStudents();
+	  model.addObject("studentList", studentList);
+
 	  model.setViewName("student_form");
-	  
 	  return model;
 	 }
 	 
@@ -95,21 +100,9 @@ public class StudentController {
 
 	  System.out.println(student.getFullname());
 
-			 for(Student student2: studentService.getAllStudents())
-			 {
-
-				 if (student2.getNumber().equals(student.getNumber()))
-				 {
-
-					 redirAttrs.addFlashAttribute("message", "Eklemeye Çalıştığınız Öğrenci Numarası Kayıtlarda Mevcut");
-					 return new ModelAndView("redirect:/student/list");
-
-
-				 }
-			 }
 
 	  studentService.addStudent(student);
-	  redirAttrs.addFlashAttribute("message", "Öğrenci Başarıyla Oluşturuldu ");
+	  redirAttrs.addFlashAttribute("message", "Öğrenci Başarıyla Kaydedildi ");
 	  return new ModelAndView("redirect:/student/list");
 	  
 	 }
@@ -117,8 +110,13 @@ public class StudentController {
 	 @RequestMapping(value="/deleteStudent/{id}", method=RequestMethod.GET)
 	 public ModelAndView delete(@PathVariable("id") int id) {
 		 
-	  studentService.deleteStudent(id);
-	  return new ModelAndView("redirect:/student/list");
-	  
+
+	  try {
+		  studentService.deleteStudent(id);
+		  return new ModelAndView("redirect:/student/list");
+	  }catch (Exception e){
+		  return new ModelAndView("redirect:/student/list");
+	  }
+
 	 }
 }

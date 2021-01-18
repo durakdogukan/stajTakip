@@ -28,8 +28,8 @@ public class Danisman {
     @OneToMany(mappedBy="danisman")
     private Set<Student> student;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     private String fullname;

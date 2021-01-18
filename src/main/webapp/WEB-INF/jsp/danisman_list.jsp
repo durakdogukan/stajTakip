@@ -75,13 +75,13 @@
         <div class="col-sm-10">
             <div class="well">
 
+                <spring:url value="/danisman/addDanisman/" var="addURL" />
+                <a class="btn btn-success pull-right" href="${addURL}" role="button" >Yeni Kullanıcı Ekle</a>
+
                 <c:if test="${message != null}">
-                    <div class="alert alert-danger" role="alert"> ${message} </div>
+                    <div class="alert alert-success" role="alert"> ${message} </div>
                 </c:if>
 
-                <c:if test="${message == null}">
-                    <div class="alert alert-primary" role="alert"> ${message} </div>
-                </c:if>
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <th scope="row">Danışman Ad Soyad</th>
@@ -108,8 +108,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <spring:url value="/danisman/addDanisman/" var="addURL" />
-                <a class="btn btn-success" href="${addURL}" role="button" >Danışman Ekle / Güncelle</a>
+
             </div>
         </div>
     </div>

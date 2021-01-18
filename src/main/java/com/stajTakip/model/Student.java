@@ -37,12 +37,6 @@ public class Student {
 	 @Column(name="gender", nullable = false, length = 1)
 	 private String gender;
 
-	 /*
-	@Column(name="birthday", nullable = false )
-	@Temporal(TemporalType.DATE)
-	private Date birthday;
-
-	  */
 
 	@Column(name="birthday", nullable = false )
 	//@DateTimeFormat(pattern = "yyyy-MM-dd" )
@@ -59,14 +53,14 @@ public class Student {
 	*/
 
 	@ManyToOne
-	@JoinColumn(name="danisman_id", nullable=false)
+	@JoinColumn(name="danisman_id")
 	private Danisman danisman;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@OneToMany(mappedBy="student")
+	@OneToMany(mappedBy="student", cascade = CascadeType.REMOVE )
 	private Set<Stajbilgisi> stajbilgisi;
 
 

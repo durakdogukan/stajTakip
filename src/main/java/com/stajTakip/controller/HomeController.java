@@ -53,6 +53,14 @@ public class HomeController {
 
     }
 
+    @GetMapping({"/deneme"})
+
+    public String deneme() {
+
+        return "deneme";
+
+    }
+
 
     @GetMapping({"/yonetici_login"})
 
@@ -86,17 +94,20 @@ public class HomeController {
             if(student != null){
 
                 Sirketbilgisi sirketbilgisi = getSirket(student.getId());
-                request.setAttribute("sirketbilgisi", sirketbilgisi);
+                if (sirketbilgisi != null)
+                    request.setAttribute("sirketbilgisi", sirketbilgisi);
 
                 if(sirketbilgisi != null){
 
                     Stajbirim stajbirim = getStajbirim(student.getId());
-                    request.setAttribute("stajbirim", stajbirim);
+                    if(stajbirim != null)
+                        request.setAttribute("stajbirim", stajbirim);
 
                     if(stajbirim != null){
 
                         Stajbilgisi stajbilgisi = getStajbilgisi(student.getId());
-                        request.setAttribute("stajbilgisi", stajbilgisi);
+                        if (stajbilgisi != null)
+                            request.setAttribute("stajbilgisi", stajbilgisi);
 
                     }
                 }
@@ -161,27 +172,31 @@ public class HomeController {
 
     private  Sirketbilgisi getSirket(int student_id){
 
-        for (Stajbilgisi stajbilgisi: stajbilgisiService.getAllStajbilgisi()){
+        try {
+                for (Stajbilgisi stajbilgisi: stajbilgisiService.getAllStajbilgisi()){
 
-            if (stajbilgisi.getStudent().getId() == student_id){
+                    if (stajbilgisi.getStudent() != null && stajbilgisi.getStudent().getId() == student_id){
 
-                int stajbirim_id = stajbilgisi.getStajbirim().getId();
+                        int stajbirim_id = stajbilgisi.getStajbirim().getId();
 
-                for (Stajbirim stajbirim: stajbirimService.getAllStajbirim()){
+                        for (Stajbirim stajbirim: stajbirimService.getAllStajbirim()){
 
-                    if(stajbirim.getId() == stajbirim_id){
+                            if(stajbirim.getId() == stajbirim_id){
 
-                        for(Sirketbilgisi sirketbilgisi: sirketbilgisiService.getAllSirketbilgisi()){
+                                for(Sirketbilgisi sirketbilgisi: sirketbilgisiService.getAllSirketbilgisi()){
 
-                            if(sirketbilgisi.getId() == stajbirim.getSirketbilgisi().getId()){
+                                    if(sirketbilgisi.getId() == stajbirim.getSirketbilgisi().getId()){
 
-                                return sirketbilgisi;
+                                        return sirketbilgisi;
 
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
+        }catch(Exception e){
+            System.out.println("Catch - Hata Alındı.");
         }
         return null;
     }
