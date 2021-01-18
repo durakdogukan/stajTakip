@@ -1,7 +1,11 @@
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
 <%@ page import="com.stajTakip.services.DanismanService" %>
 <%@ page import="org.springframework.web.servlet.ModelAndView" %>
-<%@ page import="com.stajTakip.model.*" %>
+<%@ page import="com.stajTakip.model.User" %>
+<%@ page import="com.stajTakip.model.Student" %>
+<%@ page import="com.stajTakip.model.Stajbirim" %>
+<%@ page import="com.stajTakip.model.Sirketbilgisi" %>
+<%@ page import="com.stajTakip.model.Stajbilgisi" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,15 +17,13 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     if (user==null)
-
         response.sendRedirect("/student_login");
-%>
 
-<%
     Student student = (Student) request.getSession().getAttribute("student");
     Sirketbilgisi sirketbilgisi = (Sirketbilgisi) request.getSession().getAttribute("sirketbilgisi");
     Stajbirim stajbirim = (Stajbirim) request.getSession().getAttribute("stajbirim");
     Stajbilgisi stajbilgisi = (Stajbilgisi) request.getSession().getAttribute("stajbilgisi");
+
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -91,22 +93,21 @@
                 <br/>
                 <br/> Hoşgeldin, ${student.firstname} ${student.lastname} !
                 <br/>
+            </ul>
 
-            </ul><br>
-
+            <br>
             <spring:url value="/logout" var="addURL" />
 
             <form:form method="post" action="${addURL}" cssClass="form" >
+
                 <input class="btn btn-info" type="submit" value="Çıkış Yap">
+
             </form:form>
         </div>
         <br>
 
-
-
         <div class="col-sm-10">
             <div class="well">
-
                 <br/>
 
                 <h3 style="text-align: center">Öğrenci Bilgileri</h3> <br/>
@@ -158,32 +159,29 @@
 
                 <table class="table table-striped">
                     <thead class="thead-dark">
-                    <th scope="row">Şirket Adı</th>
-                    <th scope="row">Adres</th>
-                    <th scope="row">Şehir</th>
-                    <th scope="row">Web Site</th>
+                        <th scope="row">Şirket Adı</th>
+                        <th scope="row">Adres</th>
+                        <th scope="row">Şehir</th>
+                        <th scope="row">Web Site</th>
                     </thead>
 
-                    <c:if test="${sirketbilgisi} != null">
-                        <tbody>
-                        <tr>
-                            <td>${sirketbilgisi.ad}</td>
-                            <td>${sirketbilgisi.sehir}</td>
-                            <td>${sirketbilgisi.adres}</td>
-                            <td>${sirketbilgisi.website}</td>
-                        </tr>
-                        </tbody>
-                    </c:if>
-                    <c:if test="${sirketbilgisi} == null">
-                        <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </c:if>
+                    <tbody>
+                    <tr>
+                        <td>
+                            ${sirketbilgisi.ad}
+                        </td>
+                        <td>
+                            ${sirketbilgisi.sehir}
+                        </td>
+                         <td>
+                            ${sirketbilgisi.adres}
+                         </td>
+                         <td>
+                            ${sirketbilgisi.website}
+                         </td>
+                    </tr>
+                    </tbody>
+
                 </table>
 
                 <br/>
@@ -202,12 +200,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${stajbirim.sirketbilgisi.ad}</td>
-                            <td>${stajbirim.ad}</td>
-                            <td>${stajbirim.kontaktad} ${stajbirim.kontaktsoyad}</td>
-                            <td>${stajbirim.kontaktunvan}</td>
-                            <td>${stajbirim.kontakttel}</td>
-                            <td>${stajbirim.kontaktemail}</td>
+                            <td>
+                                ${stajbirim.sirketbilgisi.ad}
+                            </td>
+                            <td>
+                                ${stajbirim.ad}
+                            </td>
+                            <td>
+                                ${stajbirim.kontaktad} ${stajbirim.kontaktsoyad}
+                            </td>
+                            <td>
+                                ${stajbirim.kontaktunvan}
+                            </td>
+                            <td>
+                                ${stajbirim.kontakttel}
+                            </td>
+                            <td>
+                                ${stajbirim.kontaktemail}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -230,27 +240,43 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>${stajbilgisi.student.firstname} ${stajbilgisi.student.lastname}</td>
-                            <td>${stajbilgisi.student.number}</td>
-                            <td>${stajbilgisi.stajbirim.sirketbilgisi.ad}</td>
-                            <td>${stajbilgisi.stajbirim.ad}</td>
-                            <td><fmt:formatDate value="${stajbilgisi.baslamatarihi}" pattern="dd/MM/yyyy" /></td>
-                            <td><fmt:formatDate value="${stajbilgisi.bitistraihi}" pattern="dd/MM/yyyy" /></td>
+                            <td>
+                                ${stajbilgisi.student.firstname} ${stajbilgisi.student.lastname}
+                            </td>
+                            <td>
+                                ${stajbilgisi.student.number}
+                            </td>
+                            <td>
+                                ${stajbilgisi.stajbirim.sirketbilgisi.ad}
+                            </td>
+                            <td>
+                                ${stajbilgisi.stajbirim.ad}
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${stajbilgisi.baslamatarihi}" pattern="dd/MM/yyyy" />
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${stajbilgisi.bitistraihi}" pattern="dd/MM/yyyy" />
+                            </td>
                             <c:if test="${stajbilgisi.stajpuani != 0}">
-                                <td>${stajbilgisi.stajpuani}</td>
+                                <td>
+                                        ${stajbilgisi.stajpuani}
+                                </td>
                             </c:if>
                             <c:if test="${stajbilgisi.stajpuani == 0}">
-                                <td></td>
+                                <td>
+
+                                </td>
                             </c:if>
-                            <td width="10%">${stajbilgisi.yorum}</td>
+                            <td width="10%">
+                                ${stajbilgisi.yorum}
+                            </td>
                         </tr>
                     </tbody>
-
-
+                </table>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

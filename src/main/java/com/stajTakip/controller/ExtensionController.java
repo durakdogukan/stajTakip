@@ -41,7 +41,13 @@ public class ExtensionController {
 
         }
 
+
         request.removeAttribute("user");
+        request.removeAttribute("student");
+        request.removeAttribute("sirketbilgisi");
+        request.removeAttribute("stajbirim");
+        request.removeAttribute("stajbilgisi");
+
         return new ModelAndView("redirect:/student_login");
 
     }

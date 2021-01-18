@@ -53,14 +53,6 @@ public class HomeController {
 
     }
 
-    @GetMapping({"/deneme"})
-
-    public String deneme() {
-
-        return "deneme";
-
-    }
-
 
     @GetMapping({"/yonetici_login"})
 
@@ -94,19 +86,19 @@ public class HomeController {
             if(student != null){
 
                 Sirketbilgisi sirketbilgisi = getSirket(student.getId());
-                if (sirketbilgisi != null)
+               // if (sirketbilgisi != null)
                     request.setAttribute("sirketbilgisi", sirketbilgisi);
 
                 if(sirketbilgisi != null){
 
                     Stajbirim stajbirim = getStajbirim(student.getId());
-                    if(stajbirim != null)
+                    //if(stajbirim != null)
                         request.setAttribute("stajbirim", stajbirim);
 
                     if(stajbirim != null){
 
                         Stajbilgisi stajbilgisi = getStajbilgisi(student.getId());
-                        if (stajbilgisi != null)
+                       // if (stajbilgisi != null)
                             request.setAttribute("stajbilgisi", stajbilgisi);
 
                     }
@@ -172,7 +164,7 @@ public class HomeController {
 
     private  Sirketbilgisi getSirket(int student_id){
 
-        try {
+//        try {
                 for (Stajbilgisi stajbilgisi: stajbilgisiService.getAllStajbilgisi()){
 
                     if (stajbilgisi.getStudent() != null && stajbilgisi.getStudent().getId() == student_id){
@@ -195,9 +187,9 @@ public class HomeController {
                         }
                     }
                 }
-        }catch(Exception e){
-            System.out.println("Catch - Hata Alındı.");
-        }
+//        }catch(Exception e){
+//            System.out.println("Catch - Hata Alındı.");
+//        }
         return null;
     }
 
@@ -212,7 +204,6 @@ public class HomeController {
                 for (Stajbirim stajbirim: stajbirimService.getAllStajbirim()){
 
                     if(stajbirim.getId() == stajbirim_id){
-
                         return stajbirim;
                     }
                 }
