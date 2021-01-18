@@ -27,12 +27,12 @@
                 alert ( "Staja Başlama Tarihi Giriniz" );
                 return false;
             }
-            if (document.form.bitistarihi.value == ""){
+            if (document.form.bitistraihi.value == ""){
                 alert ( "Staj Bitiş Tarihi Giriniz" );
                 return false;
             }
             if (document.form.stajpuani.value == ""){
-                alert ( "Staj Bitiş Tarihi Giriniz" );
+                alert ( "Staj puanı Giriniz" );
                 return false;
             }
             return true;
@@ -46,7 +46,7 @@
 
     <h2>Staj Birimi Ekle / Güncelle</h2>
 
-    <form:form modelAttribute="stajbilgisiForm" method="post" action="${addURL}" cssClass="form" >
+    <form:form name="form" modelAttribute="stajbilgisiForm" method="post" action="${addURL}" cssClass="form" onsubmit="return kontrol();" >
 
         <form:hidden path="id"/>
 
